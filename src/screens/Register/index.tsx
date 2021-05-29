@@ -12,6 +12,7 @@ import {
    TransactionsType
 } from "./styles";
 import { TransactionTypeButton } from '../../components/Forms/TransactionTypeButton';
+import { SelectCategory } from '../../components/Forms/SelectCategory';
 
 export function Register() {
    const [transactionType, setTransactionType] = useState('')
@@ -51,6 +52,8 @@ export function Register() {
 
                   />
                </TransactionsType>
+
+               <SelectCategory title="Título"/>
             </Fields>
 
             <Button title="Enviar"/>
