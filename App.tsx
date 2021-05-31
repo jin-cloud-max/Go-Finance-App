@@ -12,7 +12,7 @@ import {
    Poppins_700Bold
 } from '@expo-google-fonts/poppins'
 
-import { AppRoutes } from './src/routes/App.routes';
+import { AppRoutes } from './src/routes/app.routes';
 
 import theme from './src/global/styles/theme';
 
