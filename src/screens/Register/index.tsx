@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation } from '@react-navigation/native'
+import { useAuth } from '../../hooks/auth'
 
 import { CategorySelect } from '../CategorySelect';
 
@@ -28,6 +29,7 @@ import {
    Fields,
    TransactionsType
 } from "./styles";
+
 
 interface FormData {
    name: string;
@@ -47,6 +49,7 @@ export function Register() {
    const [categoryModalOpen, setCategoryModalOpen] = useState(false)
  
    const navigation = useNavigation()
+   const { user } = useAuth()
 
 
    const [category, setCategory] = useState({
@@ -76,7 +79,6 @@ export function Register() {
    }
 
    async function handleRegister(form: FormData) {
-      
 
       if (!transactionType) {
          return Alert.alert('Selecione o tipo de transação')
@@ -96,7 +98,7 @@ export function Register() {
       }
 
       try {
-         const dataKey = '@gofinance:transactions'
+         const dataKey = `@gofinance:transactions_user:${user.id}`
          const data = await AsyncStorage.getItem(dataKey)
 
          const currentData = data ? JSON.parse(data) : []

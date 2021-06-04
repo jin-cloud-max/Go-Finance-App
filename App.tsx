@@ -4,9 +4,8 @@ import 'intl/locale-data/jsonp/pt-BR'
 
 import React from 'react';
 import { StatusBar } from 'react-native'
-import { ThemeProvider } from 'styled-components';
 import AppLoading from 'expo-app-loading';
-import { NavigationContainer } from '@react-navigation/native';
+import { ThemeProvider } from 'styled-components';
 
 import {
    useFonts,
@@ -15,9 +14,11 @@ import {
    Poppins_700Bold
 } from '@expo-google-fonts/poppins'
 
-import { AppRoutes } from './src/routes/app.routes';
 
 import theme from './src/global/styles/theme';
+
+import { AuthProvider, useAuth } from './src/hooks/auth'
+import { Routes } from './src/routes';
 
 
 export default function App() {
@@ -26,18 +27,20 @@ export default function App() {
       Poppins_500Medium,
       Poppins_700Bold
    })
+
+   const { userStorageLoading } = useAuth()
    
-   if (!fontsLoaded) {
+   if (!fontsLoaded || userStorageLoading) {
       return <AppLoading />
    }
 
 
    return (
       <ThemeProvider theme={theme}>
-         <NavigationContainer>
-            <StatusBar barStyle="light-content" backgroundColor={theme.colors.primary}/>
-            <AppRoutes />
-         </NavigationContainer>
+         <StatusBar barStyle="light-content" backgroundColor={theme.colors.primary}/>
+         <AuthProvider>
+            <Routes />
+         </AuthProvider>
       </ThemeProvider>
    )
 }
